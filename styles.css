@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* Base Styles (Desktop) */
+/* Base Styles (Default for Desktop) */
 * {
     margin: 0;
     padding: 0;
@@ -143,17 +143,16 @@ section h2 i {
     margin-bottom: 2rem;
 }
 
-
 .skills-subgrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0;
+    gap: 1rem; 
     justify-content: center;
     max-width: 600px;
     margin: 0 auto;
 }
 
-
+/* Shared styling */
 .skill-category {
     background: rgba(255, 255, 255, 0.9);
     padding: 1.5rem;
@@ -289,7 +288,7 @@ footer p {
 
     .skills-subgrid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0;
+        gap: 1rem; 
         max-width: 100%;
         padding: 0 1rem;
     }
@@ -354,14 +353,14 @@ footer p {
     }
 
     .skills-container {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
         gap: 0.8rem;
         margin-bottom: 1rem;
     }
 
     .skills-subgrid {
-        grid-template-columns: 1fr; 
-        gap: 0.8rem;
+        grid-template-columns: 1fr;
+        gap: 0.8rem; 
         max-width: 100%;
         padding: 0 0.5rem;
     }
@@ -399,14 +398,14 @@ footer p {
 /* Desktop Adjustments (1025px and above) */
 @media (min-width: 1025px) {
     section {
-        max-width: 900px; 
+        max-width: 900px;
     }
 
     .skills-container {
-        grid-template-columns: repeat(3, 1fr); 
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .skills-subgrid {
-        max-width: 600px; 
+        max-width: 600px;
     }
 }
