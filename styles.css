@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* Base Styles (Default for Desktop) */
+/* Base Styles (Desktop) */
 * {
     margin: 0;
     padding: 0;
@@ -142,6 +142,7 @@ section h2 i {
     gap: 1.2rem;
     margin-bottom: 2rem;
 }
+
 
 .skills-subgrid {
     display: grid;
