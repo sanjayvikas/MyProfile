@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery UI for Datepicker -->
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="static/styles-formval.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container form-container">
+        <h2 class="mb-4">Appointment Form</h2>
+        <form id="appointmentForm" action="/submit" method="POST" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                <div class="error" id="nameError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required>
+                <div class="error" id="phoneError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="appointmentDate" class="form-label">Appointment Date</label>
+                <input type="text" class="form-control" id="appointmentDate" name="appointmentDate" required>
+                <div class="error" id="dateError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <select class="form-select" id="location" name="location" required>
+                    <option value="">Select Location</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Mumbai">Mumbai</option>
+                </select>
+                <div class="error" id="locationError"></div>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                <div class="error" id="messageError"></div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                <label class="form-check-label" for="terms">
+                    I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Use</a>
+                </label>
+                <div class="error" id="termsError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap Modal for Terms of Use -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms of Use</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery, jQuery UI, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Datepicker
+            $("#appointmentDate").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: 0 // Prevent past dates
+            });
+
+            // Form Validation
+            $("#appointmentForm").on("submit", function(event) {
+                event.preventDefault();
+                let isValid = true;
+
+                // Reset error messages
+                $(".error").text("");
+
+                // Name validation
+                const name = $("#name").val().trim();
+                if (!name) {
+                    $("#nameError").text("Name is required");
+                    isValid = false;
+                }
+
+                // Email validation
+                const email = $("#email").val().trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email) {
+                    $("#emailError").text("Email is required");
+                    isValid = false;
+                } else if (!emailRegex.test(email)) {
+                    $("#emailError").text("Invalid email format");
+                    isValid = false;
+                }
+
+                // Phone validation
+                const phone = $("#phone").val().trim();
+                const phoneRegex = /^\+?[\d\s-]{10,}$/;
+                if (!phone) {
+                    $("#phoneError").text("Phone number is required");
+                    isValid = false;
+                } else if (!phoneRegex.test(phone)) {
+                    $("#phoneError").text("Invalid phone number");
+                    isValid = false;
+                }
+
+                // Date validation
+                const appointmentDate = $("#appointmentDate").val();
+                if (!appointmentDate) {
+                    $("#dateError").text("Appointment date is required");
+                    isValid = false;
+                }
+
+                // Location validation
+                const location = $("#location").val();
+                if (!location) {
+                    $("#locationError").text("Location is required");
+                    isValid = false;
+                }
+
+                // Message validation
+                const message = $("#message").val().trim();
+                if (!message) {
+                    $("#messageError").text("Message is required");
+                    isValid = false;
+                }
+
+                // Terms checkbox validation
+                const terms = $("#terms").is(":checked");
+                if (!terms) {
+                    $("#termsError").text("You must agree to the Terms of Use");
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    this.submit(); // Submit form if valid
+                }
+            });
+        });
+    </script>
+</body>
+</html>
